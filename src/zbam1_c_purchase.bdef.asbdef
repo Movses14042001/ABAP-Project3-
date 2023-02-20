@@ -1,0 +1,32 @@
+projection;
+use draft;
+
+
+define behavior for ZBAM1_C_PURCHASE alias Purchase
+//use etag
+{
+  use create;
+  use update;
+  use delete;
+
+
+
+  use association _Orrder { create; with draft; }
+
+  use action acseptPurch;
+  use action rejectPurch;
+
+
+}
+
+define behavior for ZBAM1_C_ORDER alias Order
+//use etag
+{
+  use update;
+  use delete;
+
+  use association _Purchase { with draft; }
+
+
+
+}

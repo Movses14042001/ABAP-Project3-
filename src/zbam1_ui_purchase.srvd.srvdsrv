@@ -1,0 +1,9 @@
+@EndUserText.label: 'Service definition'
+define service ZBAM1_UI_PURCHASE {
+  expose ZBAM1_C_PURCHASE as Purchase;
+  expose ZBAM1_C_ORDER as Orrder;
+  expose ZBAM1_I_ITEM as Item;
+  expose ZBAM1_I_USER as User;
+  expose I_Currency as Currency;
+  expose ZBAM1_I_EMPLOYEE as Employee;
+}

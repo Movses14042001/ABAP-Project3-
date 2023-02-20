@@ -1,0 +1,98 @@
+@Metadata.layer: #CORE
+@UI:{
+    headerInfo : { typeName : 'Purchase',
+      typeNamePlural : 'Purchases',
+      title: { type: #STANDARD, label: 'Purcahse', value: 'Description'},
+      description: { type: #STANDARD, value: 'PurchaseId' }},
+     presentationVariant: [{ sortOrder: [{ by: 'PurchaseId', direction: #DESC }] }]}
+
+annotate view ZBAM1_C_PURCHASE with
+{
+  @UI.facet: [
+               {id:    'Purchase',
+               purpose:   #STANDARD,
+               type: #IDENTIFICATION_REFERENCE,
+               label: 'Purchase' ,
+               position:  10 },
+
+                 {id:    'Order',
+               purpose:   #STANDARD,
+               type: #LINEITEM_REFERENCE,
+               label: 'Order',
+               position:  20,
+               targetElement: '_Orrder'}]
+   
+
+  @UI: { identification: [{position: 1, label: 'Purcahse UUID' }] }
+  PurchaseUuid;
+
+  @UI:{ lineItem: [{position: 10 }],
+        identification: [{position: 10 }],
+        selectionField: [{position: 10}] }
+  PurchaseId;
+
+
+  @UI:{ lineItem: [{position: 20 }],
+        identification: [{position: 20 }],
+        selectionField: [{position: 20}] }
+  UserId;
+
+
+
+  @UI:{ lineItem: [{position: 30 }],
+       identification: [{position: 30 }],
+       selectionField: [{position: 30 }] }
+  ItemId;
+
+  @UI:{ lineItem: [{position: 40 }]}
+  ItemPrice;
+
+  @UI:{ lineItem: [ { position: 50 } ],
+     identification: [ { position: 50 } ]}
+  ItemQount;
+
+  @UI:{ lineItem: [{position: 60 }],
+       identification: [{position: 60 }]}
+     
+  PurchaseDate;
+
+  @UI:{ lineItem: [{position: 70 }],
+        identification: [{position: 70 }]}
+       
+  Deliverdate;
+
+
+
+
+  @UI:{ lineItem: [{position: 80 }],
+        identification: [{position: 80 }],
+        dataPoint.targetValueElement: 'TotalPrice'} 
+        
+
+
+  TotalPrice;
+  @UI:{ lineItem: [{position: 95 }],
+       identification: [{position: 90 }]}
+       
+  Description;
+
+  @UI: {  lineItem:       [ { position: 100 },
+                             { type: #FOR_ACTION, dataAction: 'rejectPurch',   label: 'Reject Purchase', position : 10},
+                             { type: #FOR_ACTION, dataAction: 'acseptPurch',   label: 'Accept Purchase', position : 20}
+
+                           ],
+           identification: [ { position: 100  },
+                             { type: #FOR_ACTION, dataAction: 'rejectPurch',   label: 'Reject Purchase', position : 10},
+                             { type: #FOR_ACTION, dataAction: 'acseptPurch',   label: 'Accept Purchase', position : 20}],
+            selectionField: [{position: 40  }],
+            dataPoint.targetValueElement: 'PurchaseStatus'} 
+  PurchaseStatus;
+  @UI.hidden: true
+  CreatedBy;
+  @UI.hidden: true
+  CreatedAt;
+  @UI.hidden: true
+  LastChangedBy;
+  @UI.hidden: true
+  LastChangedAt;
+}

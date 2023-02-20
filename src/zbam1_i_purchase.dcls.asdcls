@@ -1,0 +1,13 @@
+@EndUserText.label: 'Purchase access control'
+@MappingRole: true
+define role ZBAM1_I_PURCHASE {
+    grant
+        select
+            on
+                ZBAM1_I_PURCHASE
+                    where
+//                        (PurchaseStatus) =
+//                        aspect pfcg_auth (ZBAM1AUT, PURCHSTAT, ACTVT='01')
+ true;}
+                         
+                       

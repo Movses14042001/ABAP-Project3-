@@ -1,0 +1,11 @@
+@EndUserText.label: 'Access control on projection view'
+@MappingRole: true
+define role ZBAM1_C_PURCHASE {
+    grant
+        select
+            on
+                ZBAM1_C_PURCHASE
+                    where
+                        inheriting conditions from entity ZBAM1_I_PURCHASE;
+                        
+}

@@ -1,0 +1,92 @@
+@Metadata.layer: #CORE
+@UI:{
+    headerInfo : { typeName : 'Order',
+      typeNamePlural : 'Orders',
+      title: { type: #STANDARD, label: 'Order', value: 'Description'},
+        description: { type: #STANDARD, value: 'OrderId' }}}
+
+annotate view ZBAM1_C_ORDER with
+{
+
+  @UI.facet:  [ {
+      label: 'Order Information ',
+      id: 'OrderInfo',
+      type: #COLLECTION,
+      position: 10
+    },
+    {
+      label: 'General',
+      id: 'Order',
+      type: #IDENTIFICATION_REFERENCE,
+      purpose: #STANDARD,
+      parentId: 'OrderInfo',
+      position: 10
+    },
+      {
+      id: 'Employee',
+      purpose: #STANDARD,
+      type: #FIELDGROUP_REFERENCE,
+      parentId: 'OrderInfo',
+      label: 'Employee Information',
+      position: 20,
+      targetQualifier: 'Empgroup'
+    },
+    {
+      id: 'Prices',
+      purpose: #STANDARD,
+      type: #FIELDGROUP_REFERENCE,
+      parentId: 'OrderInfo',
+      label: 'Prices',
+      position: 30,
+      targetQualifier: 'PricesGroup'
+    }
+  ]
+
+  @UI: { identification: [{position: 10, label: 'Order UUID' }] }
+  OrderUuid;
+
+  @UI.hidden: true
+  PurchaseUuid;
+
+  @UI:{ lineItem: [ { position: 20 } ],
+       identification: [ { position: 10} ] }
+
+  OrderId;
+  
+ @UI:{ lineItem: [ { position: 70 } ],
+      identification: [ { position: 20 } ]
+  }
+  Description;
+
+
+
+  @UI:{ lineItem: [ { position: 30 } ],
+      fieldGroup: [{ qualifier: 'Empgroup', position: 10 } ] }
+
+  EmployeeId;
+
+
+  @UI:{ lineItem: [ { position: 40 } ],
+       fieldGroup: [{ qualifier: 'Empgroup', position: 20 } ] }
+  OrderAddress;
+
+  @UI:{ lineItem: [ { position: 50 } ],
+     fieldGroup: [{ qualifier: 'PricesGroup', position: 10 } ],
+     dataPoint.targetValueElement: 'PricePerOrer'} 
+  PricePerOrer;
+
+
+  @UI.hidden: true
+  CreatedBy;
+
+  @UI.hidden: true
+  CreatedAt;
+
+  @UI.hidden: true
+  LastChangedBy;
+
+  @UI.hidden: true
+  LastChangedAt;
+
+
+}

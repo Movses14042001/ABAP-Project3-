@@ -1,0 +1,121 @@
+managed;
+with draft;
+
+
+
+define behavior for ZBAM1_I_PURCHASE alias Purchase
+implementation in class zbp_bam1_i_purchase unique
+persistent table zbam1_d_purch_a
+draft table zbam1_d_purch_d
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  association _Orrder { create; with draft; }
+
+  field ( numbering : managed, readonly ) PurchaseUuid;
+  field ( readonly ) Purchaseid, TotalPrice;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt;
+  field ( mandatory ) ItemId, UserId, ItemQount;
+  internal action recalcTotalPrice;
+
+
+  action ( features : instance ) rejectPurch result [1] $self;
+  action ( features : instance ) acseptPurch result [1] $self;
+
+
+
+
+  determination calculateTotalPrice on modify { field CurrencyCode; }
+  determination setInitialStatus on save { create; }
+
+  determination calculatePurchaseId on save { create; }
+
+  validation valideateUser on save { field UserId; }
+  validation validateItem on save { field ItemId; }
+
+  validation validateDates on save { field PurchaseDate, DeliverDate; create; }
+
+  draft determine action Prepare
+  {
+    validation valideateUser;
+    validation validateItem;
+    validation validateDates;
+  }
+
+
+  mapping for zbam1_d_purch_a
+  {
+
+    PurchaseUuid = purchase_uuid;
+    PurchaseId = purchase_id;
+    ItemId = item_id;
+    UserId = user_id;
+    ItemQount = item_qount;
+    TotalPrice = total_price;
+    PurchaseDate = Purchase_date;
+    DeliverDate = Delivery_date;
+    CurrencyCode = currency_code;
+    PurchaseStatus = purchase_status;
+    Description = description;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+  }
+
+}
+
+define behavior for ZBAM1_I_ORDER alias Orrder
+implementation in class zbp_bam1_i_order unique
+persistent table zbam1_d_order_a
+lock dependent by _Purchase
+draft table zbam1_d_order_d
+authorization dependent by _Purchase
+etag master lastChangedAt
+{
+  update;
+  delete;
+
+  association _Purchase { with draft; }
+
+
+  validation valideateEmployee on save { field EmployeeId; }
+
+  field ( numbering : managed, readonly ) OrderUuid;
+  field ( readonly ) PurchaseUuid, OrderId, PricePerOrer;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt;
+
+
+
+
+
+  determination calculateOrderId on modify { create; }
+  determination calculateTotalPrice on modify { field  CurrencyCode; }
+
+
+
+
+
+  mapping for zbam1_d_order_a
+  {
+
+    OrderUuid = order_uuid;
+    PurchaseUuid = purchase_uuid;
+    OrderId = order_id;
+    EmployeeId = employee_id;
+    OrderAddress = order_address;
+    CurrencyCode = currency_code;
+    Description = description;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+
+
+  }
+}
