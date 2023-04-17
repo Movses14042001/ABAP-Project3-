@@ -51,21 +51,21 @@ etag master LastChangedAt
   mapping for zbam1_d_purch_a
   {
 
-    PurchaseUuid = purchase_uuid;
-    PurchaseId = purchase_id;
-    ItemId = item_id;
-    UserId = user_id;
-    ItemQount = item_qount;
-    TotalPrice = total_price;
-    PurchaseDate = Purchase_date;
-    DeliverDate = Delivery_date;
-    CurrencyCode = currency_code;
+    PurchaseUuid   = purchase_uuid;
+    PurchaseId     = purchase_id;
+    ItemId         = item_id;
+    UserId         = user_id;
+    ItemQount      = item_qount;
+    TotalPrice     = total_price;
+    PurchaseDate   = Purchase_date;
+    DeliverDate    = Delivery_date;
+    CurrencyCode   = currency_code;
     PurchaseStatus = purchase_status;
-    Description = description;
-    CreatedBy = created_by;
-    CreatedAt = created_at;
-    LastChangedBy = last_changed_by;
-    LastChangedAt = last_changed_at;
+    Description    = description;
+    CreatedBy      = created_by;
+    CreatedAt      = created_at;
+    LastChangedBy  = last_changed_by;
+    LastChangedAt  = last_changed_at;
   }
 
 }

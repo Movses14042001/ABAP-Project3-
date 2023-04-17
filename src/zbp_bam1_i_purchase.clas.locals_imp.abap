@@ -9,7 +9,7 @@ CLASS lhc_Purchase DEFINITION INHERITING FROM cl_abap_behavior_handler.
       END OF purchase_status.
 
     METHODS recalcTotalPrice FOR MODIFY
-        IMPORTING keys FOR ACTION Purchase~recalcTotalPrice.
+      IMPORTING keys FOR ACTION Purchase~recalcTotalPrice.
 
     METHODS calculateTotalPrice FOR DETERMINE ON MODIFY
       IMPORTING keys FOR Purchase~calculateTotalPrice.
@@ -309,12 +309,12 @@ CLASS lhc_Purchase IMPLEMENTATION.
 
   ENDMETHOD.
 
-   METHOD calculateTotalPrice.
-  MODIFY ENTITIES OF zbam1_i_purchase IN LOCAL MODE
-      ENTITY Purchase
-        EXECUTE recalcTotalPrice
-        FROM CORRESPONDING #( keys )
-      REPORTED DATA(execute_reported).
+  METHOD calculateTotalPrice.
+    MODIFY ENTITIES OF zbam1_i_purchase IN LOCAL MODE
+        ENTITY Purchase
+          EXECUTE recalcTotalPrice
+          FROM CORRESPONDING #( keys )
+        REPORTED DATA(execute_reported).
 
     reported = CORRESPONDING #( DEEP execute_reported ).
   ENDMETHOD.
@@ -456,7 +456,7 @@ CLASS lhc_Purchase IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD recalcTotalPrice.
-  TYPES: BEGIN OF ty_amount_per_currencycode,
+    TYPES: BEGIN OF ty_amount_per_currencycode,
              amount        TYPE zbam1_total_price,
              currency_code TYPE zbam1_currency_code,
            END OF ty_amount_per_currencycode.
@@ -508,6 +508,8 @@ CLASS lhc_Purchase IMPLEMENTATION.
         ENDIF.
       ENDLOOP.
     ENDLOOP.
+
+
 
     " write back the modified total_price of purchases
     MODIFY ENTITIES OF zbam1_i_purchase IN LOCAL MODE

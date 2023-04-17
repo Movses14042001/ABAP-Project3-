@@ -22,7 +22,7 @@ CLASS lhc_Orrder IMPLEMENTATION.
 
   METHOD calculateorderid.
 
-DATA max_orderid TYPE zbam1_order_id.
+    DATA max_orderid TYPE zbam1_order_id.
     DATA update TYPE TABLE FOR UPDATE zbam1_i_purchase\\Orrder.
 
 

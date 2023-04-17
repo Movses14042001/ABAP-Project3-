@@ -1,4 +1,5 @@
 @Metadata.layer: #CORE
+
 @UI:{
     headerInfo : { typeName : 'Purchase',
       typeNamePlural : 'Purchases',
